@@ -213,51 +213,45 @@ String(s);      //只把 s 转换成原始的字符串，并返回转换后的�
 constructor   对创建该对象的函数的引用
 prototype     允许您向对象添加属性和方法
 </code></pre>
-<h3 id="2-3-常用方法"><a href="#2-3-常用方法" class="headerlink" title="2.3 常用方法"></a>2.3 常用方法</h3><pre><code>1、 .charAt(index)      返回指定位置的字符 
-    注意：index 在 0 ~ str.length-1 ，若index在范围之外，则返回 &quot;&quot;
-          str.charAt()即不带参数 和 str.charAt(NaN) 均返回字符串的第一个字符
-
-2、 .charCodeAt(index)       返回在指定的位置的字符的 Unicode 编码
-    注意：index 在 0 ~ str.length-1 ，若index在范围之外，则返回 NaN
-
-3、 .concat()            用于连接两个或多个字符串
-
-4、 .fromCharCode()      接受一个指定的 Unicode 值，然后返回一个字符串。
-    String.fromCharCode(unicode1,unicode2,...,nuicodeX) 该法是 String 的静态方法，语法应该是 String.fromCharCode()
-
-5、 .indexOf(searchStr,startIndex)          返回 searchStr 在字符串中首次出现的位置。匹配不到则返回-1
-    .lastIndexOf(searchStr,startIndex)      返回 searchStr 最后出现的位置 从后向前搜索
-
-6、 .match(regExp)        在字符串内检索指定的值，或找到一个或多个正则表达式的匹配。 匹配不到返回Null
-        match()方法返回值为Array类型，
-        若参数regExp中 没有全局标志&quot;g&quot;: 只查找第一个匹配 
-            数组中包括 索引0, 属性index, 属性input
-        若参数regExp中 有全局标志&quot;g&quot;: 查找所有地匹配 
-            其中数组元素就是所有匹配到的子字符串，数组中包括 索引0，索引1，....索引N-1
-
-7、 .replace(regexp/substrOld,replaceStrNew)   在字符串中用一些字符替换另一些字符，或替换一个与正则表达式匹配的子串
-
-8、 .search(regexp/substr)    用于检索字符串中指定的子字符串，或检索与正则表达式相匹配的子字符串。
-        返回值：str中第一个与正则或字符串相匹配的子串的起始位置。无匹配返回-1    
-        说明： .search()  不执行全局匹配，它将忽略标志 g。
-                总是从字符串的开始进行检索，并返回 stringObject 的第一个匹配的位置
-             
-
-9、 .slice(startIndex,endIndex)     提取字符串的某个部分，并以新的字符串返回被提取的部分
-        返回值 [startIndex，endIndex)  前面包括，后面不包括
-
-10、.split()    用于把一个字符串分割成字符串数组
-
-11、.substr(startIndex,length)   抽取从 startIndex 下标开始的指定数目的子串 
-        无参数length，则返回从startIndex到字符串尾字符
-
-12、.substring(startIndex,endIndex)  提取字符串中介于两个指定下标之间的子串 
-        无参数endIndex，则返回从startIndex到字符串尾字符
-
-13、.toLocaleUpperCase() / .toLocaleLowerCase()   用于字符串转换大小写（与下面的方法方法仅在某些外国小语种有差别）
-    .toUpperCase() / .toLowerCase()   用于字符串转换大小写
+<h3 id="2-3-常用方法"><a href="#2-3-常用方法" class="headerlink" title="2.3 常用方法"></a>2.3 常用方法</h3><pre><code>charAt()
+charCodeAt()
+concat() 
+fromCharCode() 
+indexOf()和lastIndexOf()
+match()
+replace()
+search()
+slice()
+split() 
+substr()
+substring()
+toLocaleUpperCase() / toLocaleLowerCase() /toUpperCase() / toLowerCase()
 </code></pre>
-<h2 id="3-Boolean类型"><a href="#3-Boolean类型" class="headerlink" title="3 Boolean类型"></a>3 Boolean类型</h2><pre><code>该类型只有两个值，true和false
+<h4 id="1、-charAt-index-返回指定位置的字符"><a href="#1、-charAt-index-返回指定位置的字符" class="headerlink" title="1、 charAt(index)      返回指定位置的字符"></a>1、 charAt(index)      返回指定位置的字符</h4><pre><code>注意：index 在 0 ~ str.length-1 ，若index在范围之外，则返回 &quot;&quot;
+    str.charAt()即不带参数 和 str.charAt(NaN) 均返回字符串的第一个字符
+</code></pre>
+<h4 id="2、-charCodeAt-index-返回在指定的位置的字符的-Unicode-编码"><a href="#2、-charCodeAt-index-返回在指定的位置的字符的-Unicode-编码" class="headerlink" title="2、 charCodeAt(index)       返回在指定的位置的字符的 Unicode 编码"></a>2、 charCodeAt(index)       返回在指定的位置的字符的 Unicode 编码</h4><pre><code>注意：index 在 0 ~ str.length-1 ，若index在范围之外，则返回 NaN
+</code></pre>
+<h4 id="3、-concat-用于连接两个或多个字符串"><a href="#3、-concat-用于连接两个或多个字符串" class="headerlink" title="3、 .concat()            用于连接两个或多个字符串"></a>3、 .concat()            用于连接两个或多个字符串</h4><h4 id="4、-fromCharCode-接受一个指定的-Unicode-值，然后返回一个字符串。"><a href="#4、-fromCharCode-接受一个指定的-Unicode-值，然后返回一个字符串。" class="headerlink" title="4、 fromCharCode()      接受一个指定的 Unicode 值，然后返回一个字符串。"></a>4、 fromCharCode()      接受一个指定的 Unicode 值，然后返回一个字符串。</h4><pre><code>String.fromCharCode(unicode1,unicode2,...,nuicodeX) 该法是 String 的静态方法，语法应该是 String.fromCharCode()
+</code></pre>
+<h4 id="5、-indexOf-searchStr-startIndex-返回-searchStr-在字符串中首次出现的位置。匹配不到则返回-1"><a href="#5、-indexOf-searchStr-startIndex-返回-searchStr-在字符串中首次出现的位置。匹配不到则返回-1" class="headerlink" title="5、 indexOf(searchStr,startIndex)          返回 searchStr 在字符串中首次出现的位置。匹配不到则返回-1"></a>5、 indexOf(searchStr,startIndex)          返回 searchStr 在字符串中首次出现的位置。匹配不到则返回-1</h4><h4 id="lastIndexOf-searchStr-startIndex-返回-searchStr-最后出现的位置-从后向前搜索"><a href="#lastIndexOf-searchStr-startIndex-返回-searchStr-最后出现的位置-从后向前搜索" class="headerlink" title="lastIndexOf(searchStr,startIndex)      返回 searchStr 最后出现的位置 从后向前搜索"></a>lastIndexOf(searchStr,startIndex)      返回 searchStr 最后出现的位置 从后向前搜索</h4><h4 id="6、-match-regExp-在字符串内检索指定的值，或找到一个或多个正则表达式的匹配。-匹配不到返回Null"><a href="#6、-match-regExp-在字符串内检索指定的值，或找到一个或多个正则表达式的匹配。-匹配不到返回Null" class="headerlink" title="6、 match(regExp)        在字符串内检索指定的值，或找到一个或多个正则表达式的匹配。 匹配不到返回Null"></a>6、 match(regExp)        在字符串内检索指定的值，或找到一个或多个正则表达式的匹配。 匹配不到返回Null</h4><pre><code>match()方法返回值为Array类型，
+若参数regExp中 没有全局标志&quot;g&quot;: 只查找第一个匹配 
+    数组中包括 索引0, 属性index, 属性input
+若参数regExp中 有全局标志&quot;g&quot;: 查找所有地匹配 
+    其中数组元素就是所有匹配到的子字符串，数组中包括 索引0，索引1，....索引N-1
+</code></pre>
+<h4 id="7、-replace-regexp-substrOld-replaceStrNew-在字符串中用一些字符替换另一些字符，或替换一个与正则表达式匹配的子串"><a href="#7、-replace-regexp-substrOld-replaceStrNew-在字符串中用一些字符替换另一些字符，或替换一个与正则表达式匹配的子串" class="headerlink" title="7、 replace(regexp/substrOld,replaceStrNew)   在字符串中用一些字符替换另一些字符，或替换一个与正则表达式匹配的子串"></a>7、 replace(regexp/substrOld,replaceStrNew)   在字符串中用一些字符替换另一些字符，或替换一个与正则表达式匹配的子串</h4><h4 id="8、-search-regexp-substr-用于检索字符串中指定的子字符串，或检索与正则表达式相匹配的子字符串。"><a href="#8、-search-regexp-substr-用于检索字符串中指定的子字符串，或检索与正则表达式相匹配的子字符串。" class="headerlink" title="8、 search(regexp/substr)    用于检索字符串中指定的子字符串，或检索与正则表达式相匹配的子字符串。"></a>8、 search(regexp/substr)    用于检索字符串中指定的子字符串，或检索与正则表达式相匹配的子字符串。</h4><pre><code>返回值：str中第一个与正则或字符串相匹配的子串的起始位置。无匹配返回-1    
+说明： search()  不执行全局匹配，它将忽略标志 g。
+        总是从字符串的开始进行检索，并返回 stringObject 的第一个匹配的位置
+             
+</code></pre>
+<h4 id="9、-slice-startIndex-endIndex-提取字符串的某个部分，并以新的字符串返回被提取的部分"><a href="#9、-slice-startIndex-endIndex-提取字符串的某个部分，并以新的字符串返回被提取的部分" class="headerlink" title="9、 slice(startIndex,endIndex)     提取字符串的某个部分，并以新的字符串返回被提取的部分"></a>9、 slice(startIndex,endIndex)     提取字符串的某个部分，并以新的字符串返回被提取的部分</h4><pre><code>返回值 [startIndex，endIndex)  前面包括，后面不包括
+</code></pre>
+<h4 id="10、split-用于把一个字符串分割成字符串数组"><a href="#10、split-用于把一个字符串分割成字符串数组" class="headerlink" title="10、split()    用于把一个字符串分割成字符串数组"></a>10、split()    用于把一个字符串分割成字符串数组</h4><h4 id="11、substr-startIndex-length-抽取从-startIndex-下标开始的指定数目的子串"><a href="#11、substr-startIndex-length-抽取从-startIndex-下标开始的指定数目的子串" class="headerlink" title="11、substr(startIndex,length)   抽取从 startIndex 下标开始的指定数目的子串"></a>11、substr(startIndex,length)   抽取从 startIndex 下标开始的指定数目的子串</h4><pre><code>无参数length，则返回从startIndex到字符串尾字符
+</code></pre>
+<h4 id="12、substring-startIndex-endIndex-提取字符串中介于两个指定下标之间的子串"><a href="#12、substring-startIndex-endIndex-提取字符串中介于两个指定下标之间的子串" class="headerlink" title="12、substring(startIndex,endIndex)  提取字符串中介于两个指定下标之间的子串"></a>12、substring(startIndex,endIndex)  提取字符串中介于两个指定下标之间的子串</h4><pre><code>无参数endIndex，则返回从startIndex到字符串尾字符
+</code></pre>
+<h4 id="13、toLocaleUpperCase-toLocaleLowerCase-用于字符串转换大小写（与下面的方法方法仅在某些外国小语种有差别）"><a href="#13、toLocaleUpperCase-toLocaleLowerCase-用于字符串转换大小写（与下面的方法方法仅在某些外国小语种有差别）" class="headerlink" title="13、toLocaleUpperCase() / toLocaleLowerCase()   用于字符串转换大小写（与下面的方法方法仅在某些外国小语种有差别）"></a>13、toLocaleUpperCase() / toLocaleLowerCase()   用于字符串转换大小写（与下面的方法方法仅在某些外国小语种有差别）</h4><h4 id="toUpperCase-toLowerCase-用于字符串转换大小写"><a href="#toUpperCase-toLowerCase-用于字符串转换大小写" class="headerlink" title="toUpperCase() / toLowerCase()   用于字符串转换大小写"></a>toUpperCase() / toLowerCase()   用于字符串转换大小写</h4><h2 id="3-Boolean类型"><a href="#3-Boolean类型" class="headerlink" title="3 Boolean类型"></a>3 Boolean类型</h2><pre><code>该类型只有两个值，true和false
 </code></pre>
 <h3 id="3-1-构造函数"><a href="#3-1-构造函数" class="headerlink" title="3.1 构造函数"></a>3.1 构造函数</h3><pre><code>new Boolean(value);     
 Boolean(value);     
@@ -304,7 +298,23 @@ prototype     允许您向对象添加属性和方法
 constructor   对创建该对象的函数的引用
 prototype     允许您向对象添加属性和方法
 </code></pre>
-<h3 id="2-3-常用方法-2"><a href="#2-3-常用方法-2" class="headerlink" title="2.3 常用方法"></a>2.3 常用方法</h3><h4 id="1-join"><a href="#1-join" class="headerlink" title="1 join()"></a>1 join()</h4><pre><code>1&gt; join(separator): 以separator为分隔符构成一个字符串，无separator默认用逗号为分隔符，且原数组不变
+<h3 id="2-3-常用方法-2"><a href="#2-3-常用方法-2" class="headerlink" title="2.3 常用方法"></a>2.3 常用方法</h3><pre><code>join()  
+push()和pop() 
+shift() 和 unshift() 
+sort()
+reverse()
+concat()
+slice()
+splice()
+indexOf()和 lastIndexOf()
+forEach()
+map()
+filter()
+every()
+some()
+reduce()和 reduceRight()
+</code></pre>
+<h4 id="1-join"><a href="#1-join" class="headerlink" title="1 join()"></a>1 join()</h4><pre><code>1&gt; join(separator): 以separator为分隔符构成一个字符串，无separator默认用逗号为分隔符，且原数组不变
     var arr = [1,2,3];
     console.log(arr.join()); // 1,2,3
     console.log(arr.join(&quot;-&quot;)); // 1-2-3
