@@ -1,6 +1,192 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>前端自动化测试框架--jest</title>
+    <url>/2021/04/23/05%E5%89%8D%E7%AB%AF%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95%E6%A1%86%E6%9E%B6jest/</url>
+    <content><![CDATA[<pre><code>概要:
+常见的测试工具，大致可分为测试框架、断言库、测试覆盖率工具等几类。 
+测试框架的作用是提供一些方便的语法来描述测试用例，以及对用例进行分组。 
+测试框架可分为两种： TDD （测试驱动开发）和 BDD （行为驱动开发） 
+常见的测试框架有 Jasmine, Mocha 以及本文要介绍的 Jest  
+断言库：主要提供语义化方法，用于对参与测试的值做各种各样的判断。这些语义化方法会返回测试的结果，要么成功、要么失败。
+常见的断言库有 Should.js, Chai.js 等。 
+测试覆盖率工具：用于统计测试用例对代码的测试情况，生成相应的报表，比如 istanbul 
+</code></pre>
+<h1 id="1、什么是Jest"><a href="#1、什么是Jest" class="headerlink" title="1、什么是Jest"></a>1、什么是Jest</h1><pre><code>Jest 是 Facebook 出品的一个测试框架，
+相对其他测试框架，其一大特点就是就是内置了常用的测试工具，比如自带断言、测试覆盖率工具，实现了开箱即用。
+而作为一个面向前端的测试框架， 
+Jest优点：比较新，基础很好，速度快，API简单，隔离性好，IDE整合，多项目并行，快出覆盖率
+</code></pre>
+<h1 id="2、安装与配置"><a href="#2、安装与配置" class="headerlink" title="2、安装与配置"></a>2、安装与配置</h1><pre><code>npm install --save-dev jest   或者   yarn add --dev jest
+</code></pre>
+<h1 id="3、简单试用"><a href="#3、简单试用" class="headerlink" title="3、简单试用"></a>3、简单试用</h1><h3 id="在根目录下，新建2个文件，sum-js-和-sum-test-js"><a href="#在根目录下，新建2个文件，sum-js-和-sum-test-js" class="headerlink" title="在根目录下，新建2个文件，sum.js  和 sum.test.js"></a>在根目录下，新建2个文件，sum.js  和 sum.test.js</h3><pre><code>sum.js中：
+    function sum(a, b)&#123;
+        return a + b;
+    &#125;
+    module.exports = sum;
+
+sum.test.js中：
+    const sum = require(&#39;./sum&#39;);
+    test(&#39;adds 1 + 2 to equal 3&#39;, () =&gt; &#123;
+        expect(sum(1, 2)).toBe(3);
+    &#125;)
+</code></pre>
+<h3 id="package-json-配置测试启动脚本"><a href="#package-json-配置测试启动脚本" class="headerlink" title="package.json 配置测试启动脚本"></a>package.json 配置测试启动脚本</h3><pre><code>    &#123;
+        &quot;scripts&quot;: &#123;
+            &quot;test&quot;: &quot;jest&quot;
+        &#125;
+    &#125;
+
+运行yarn test 或 npm run test 
+</code></pre>
+<h3 id="Jest将打印以下信息："><a href="#Jest将打印以下信息：" class="headerlink" title="Jest将打印以下信息："></a>Jest将打印以下信息：</h3><pre><code>PASS  ./sum.test.js
+√ adds 1 + 2 to equal 3 (2 ms)
+Test Suites: 1 passed, 1 total
+Tests:       1 passed, 1 total
+Snapshots:   0 total
+Time:        1.396 s
+Ran all test suites.
+</code></pre>
+<h1 id="4、基本配置和测试覆盖率生成"><a href="#4、基本配置和测试覆盖率生成" class="headerlink" title="4、基本配置和测试覆盖率生成"></a>4、基本配置和测试覆盖率生成</h1><h3 id="单元测试和集成测试的区别："><a href="#单元测试和集成测试的区别：" class="headerlink" title="单元测试和集成测试的区别："></a>单元测试和集成测试的区别：</h3><pre><code>单元测试：英文是(unit testing) 单,是指对软件中的最小可测试单元进行检查和验证。
+        前端所说的单元测试类似于模块测试。
+集成测试：也叫组装测试或者联合测试。
+        在单元测试的基础上，将所有模块按照涉及要求组装成为子系统或系统，进行集成测试。
+</code></pre>
+<h3 id="4-1-Jest-初始化配置-npx-jest-–init"><a href="#4-1-Jest-初始化配置-npx-jest-–init" class="headerlink" title="4.1 Jest 初始化配置:  npx jest –init"></a>4.1 Jest 初始化配置:  npx jest –init</h3><pre><code>之后，你会发现你的工程根目录下多了一个jest.config.js的文件
+</code></pre>
+<h3 id="4-2-coverageDirectory-“coverage”-打开测试覆盖率选项"><a href="#4-2-coverageDirectory-“coverage”-打开测试覆盖率选项" class="headerlink" title="4.2 coverageDirectory : “coverage”,   //打开测试覆盖率选项"></a>4.2 coverageDirectory : “coverage”,   //打开测试覆盖率选项</h3><pre><code>打开上面的jest配置文件,coverageDirectroy的配置是用来打开代码覆盖率的，
+当这个选项被打开后，我们就可以使用下面的命令,jest就会自动给我们生成一个代码测试覆盖率的说明。
+</code></pre>
+<h3 id="4-3-npx-jest-–coverage"><a href="#4-3-npx-jest-–coverage" class="headerlink" title="4.3 npx jest –coverage"></a>4.3 npx jest –coverage</h3><pre><code>当然这个不仅会有一个简单的终端图表，还会生成一个coverage的文件夹，这里边有很多文件。
+    PASS  ./sum.test.js
+    √ adds 1 + 2 to equal 3 (2 ms)
+    ----------|---------|----------|---------|---------|-------------------
+    File      | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s
+    ----------|---------|----------|---------|---------|-------------------
+    All files |     100 |      100 |     100 |     100 |
+    sum.js   |     100 |      100 |     100 |     100 |
+    ----------|---------|----------|---------|---------|-------------------
+    Test Suites: 1 passed, 1 total
+    Tests:       1 passed, 1 total
+    Snapshots:   0 total
+</code></pre>
+<h3 id="我们可以打开coverage-lcov-reporrt-index-html文件，这时候就可以看到一个网页形式的，非常漂亮的测试覆盖率报告。"><a href="#我们可以打开coverage-lcov-reporrt-index-html文件，这时候就可以看到一个网页形式的，非常漂亮的测试覆盖率报告。" class="headerlink" title="我们可以打开coverage-lcov-reporrt-index.html文件，这时候就可以看到一个网页形式的，非常漂亮的测试覆盖率报告。"></a>我们可以打开coverage-lcov-reporrt-index.html文件，这时候就可以看到一个网页形式的，非常漂亮的测试覆盖率报告。</h3><h1 id="5、jest匹配器"><a href="#5、jest匹配器" class="headerlink" title="5、jest匹配器"></a>5、jest匹配器</h1><h3 id="5-1、-toBe-匹配器：严格相等匹配"><a href="#5-1、-toBe-匹配器：严格相等匹配" class="headerlink" title="5.1、 toBe()匹配器：严格相等匹配"></a>5.1、 toBe()匹配器：严格相等匹配</h3><pre><code>test(&#39;测试toBe的匹配&#39;,()=&gt;&#123;
+    expect(&#39;toBe的匹配&#39;).toBe(&#39;toBe的匹配&#39;)
+&#125;) 
+
+test(&#39;测试严格相等&#39;,()=&gt;&#123;
+    const a = &#123;number:&#39;007&#39;&#125;   
+    expect(a).toBe(&#123;number:&#39;007&#39;&#125;)
+&#125;) 
+</code></pre>
+<p>第一个代码块 通过，第二个失败（仅内容相等）</p>
+<h3 id="5-2、-toEqual-匹配器：非严格相等匹配"><a href="#5-2、-toEqual-匹配器：非严格相等匹配" class="headerlink" title="5.2、 toEqual()匹配器：非严格相等匹配"></a>5.2、 toEqual()匹配器：非严格相等匹配</h3><pre><code>test(&#39;测试严格相等&#39;,()=&gt;&#123;
+    const a = &#123;number:&#39;007&#39;&#125;   
+    expect(a).toEqual(&#123;number:&#39;007&#39;&#125;)
+&#125;)
+</code></pre>
+<p>结果通过</p>
+<h3 id="5-3、toBeNul-匹配器：只匹配null值"><a href="#5-3、toBeNul-匹配器：只匹配null值" class="headerlink" title="5.3、toBeNul()匹配器：只匹配null值"></a>5.3、toBeNul()匹配器：只匹配null值</h3><pre><code>test(&#39;toBeNull测试&#39;,()=&gt;&#123;
+    const a = null   
+    expect(a).toBeNull()
+&#125;) 
+</code></pre>
+<h3 id="5-4、toBeUndefined-匹配器-：只匹配undefined值"><a href="#5-4、toBeUndefined-匹配器-：只匹配undefined值" class="headerlink" title="5.4、toBeUndefined()匹配器 ：只匹配undefined值"></a>5.4、toBeUndefined()匹配器 ：只匹配undefined值</h3><h3 id="5-5、-toBeDefined-匹配器：只要定义过了，则可以匹配成功"><a href="#5-5、-toBeDefined-匹配器：只要定义过了，则可以匹配成功" class="headerlink" title="5.5、 toBeDefined()匹配器：只要定义过了，则可以匹配成功"></a>5.5、 toBeDefined()匹配器：只要定义过了，则可以匹配成功</h3><h3 id="5-6、toBeTruthy-匹配器-toBeFalsy-匹配器：true-false匹配器，相当于判断真假"><a href="#5-6、toBeTruthy-匹配器-toBeFalsy-匹配器：true-false匹配器，相当于判断真假" class="headerlink" title="5.6、toBeTruthy()匹配器/toBeFalsy()匹配器：true/false匹配器，相当于判断真假"></a>5.6、toBeTruthy()匹配器/toBeFalsy()匹配器：true/false匹配器，相当于判断真假</h3><h3 id="5-7、toBeGreaterThan-匹配器-toBeLessThan-匹配器：数值比较，大于-小于-传入的数值，则通过"><a href="#5-7、toBeGreaterThan-匹配器-toBeLessThan-匹配器：数值比较，大于-小于-传入的数值，则通过" class="headerlink" title="5.7、toBeGreaterThan()匹配器/toBeLessThan()匹配器：数值比较，大于/小于 传入的数值，则通过"></a>5.7、toBeGreaterThan()匹配器/toBeLessThan()匹配器：数值比较，大于/小于 传入的数值，则通过</h3><h3 id="5-8、toBeGreaterThanOrEqual-匹配器-toBeLessThanOrEqual-匹配器：大于等于-小于等于，则通过"><a href="#5-8、toBeGreaterThanOrEqual-匹配器-toBeLessThanOrEqual-匹配器：大于等于-小于等于，则通过" class="headerlink" title="5.8、toBeGreaterThanOrEqual()匹配器/toBeLessThanOrEqual()匹配器：大于等于/小于等于，则通过"></a>5.8、toBeGreaterThanOrEqual()匹配器/toBeLessThanOrEqual()匹配器：大于等于/小于等于，则通过</h3><h3 id="5-9、toBeCloseTo-匹配器：自动消除浮点精度错误"><a href="#5-9、toBeCloseTo-匹配器：自动消除浮点精度错误" class="headerlink" title="5.9、toBeCloseTo()匹配器：自动消除浮点精度错误"></a>5.9、toBeCloseTo()匹配器：自动消除浮点精度错误</h3><h3 id="5-10、toMatch-匹配器：字符串包含"><a href="#5-10、toMatch-匹配器：字符串包含" class="headerlink" title="5.10、toMatch()匹配器：字符串包含"></a>5.10、toMatch()匹配器：字符串包含</h3><h3 id="5-11、toContain-匹配器：数组包含"><a href="#5-11、toContain-匹配器：数组包含" class="headerlink" title="5.11、toContain()匹配器：数组包含"></a>5.11、toContain()匹配器：数组包含</h3><h3 id="5-12、toThrow-匹配器：异常处理"><a href="#5-12、toThrow-匹配器：异常处理" class="headerlink" title="5.12、toThrow()匹配器：异常处理"></a>5.12、toThrow()匹配器：异常处理</h3><h3 id="5-13、not匹配器：取反"><a href="#5-13、not匹配器：取反" class="headerlink" title="5.13、not匹配器：取反"></a>5.13、not匹配器：取反</h3><h1 id="6、jest支持import和Es6语法"><a href="#6、jest支持import和Es6语法" class="headerlink" title="6、jest支持import和Es6语法"></a>6、jest支持import和Es6语法</h1><p>jest默认支持CommonJs规范，也就是Nodejs语法，只支持require引用，而Es6引用为import…from。</p>
+<h2 id="解决方案：使用Babel将代码块从Es6转换为CommonJs"><a href="#解决方案：使用Babel将代码块从Es6转换为CommonJs" class="headerlink" title="解决方案：使用Babel将代码块从Es6转换为CommonJs"></a>解决方案：使用Babel将代码块从Es6转换为CommonJs</h2><pre><code>npm install @babel/core@7.4.5 @babel/preset-env@7.4.5 -D
+或者
+yarn add @babel/core@7.4.5 @babel/preset-env@7.4.5 -dev
+</code></pre>
+<h2 id="Babel基本配置："><a href="#Babel基本配置：" class="headerlink" title="Babel基本配置："></a>Babel基本配置：</h2><pre><code>在项目根目录下新建一个.babelrc的文件
+    &#123;
+        &quot;presets&quot;:[
+            [
+                &quot;@babel/preset-env&quot;,
+                &#123;
+                &quot;targets&quot;:&#123;
+                    &quot;node&quot;:&quot;current&quot;
+                &#125;
+                &#125;
+            ]
+        ]
+    &#125;
+结果通过
+</code></pre>
+<h1 id="7、异步代码的测试方法"><a href="#7、异步代码的测试方法" class="headerlink" title="7、异步代码的测试方法"></a>7、异步代码的测试方法</h1><h3 id="7-1、回调函数式"><a href="#7-1、回调函数式" class="headerlink" title="7.1、回调函数式"></a>7.1、回调函数式</h3><h4 id="安装axios"><a href="#安装axios" class="headerlink" title="安装axios"></a>安装axios</h4><pre><code>    npm install axios@0.19.0 --save   或者  yarn add axioss@0.19.0
+</code></pre>
+<h4 id="根目录下，新建-fetchData-js，并编写："><a href="#根目录下，新建-fetchData-js，并编写：" class="headerlink" title="根目录下，新建 fetchData.js，并编写："></a>根目录下，新建 fetchData.js，并编写：</h4><pre><code>    import axios from &#39;axios&#39;
+    export const fetchData = (fn)=&gt;&#123;
+        axios.get(&#39;http://xxx.com/xxx.json&#39;).then((response)=&gt;&#123;     
+            fn(response.data)
+        &#125;)
+    &#125;
+</code></pre>
+<h4 id="新建fetchData-test-js-并编写："><a href="#新建fetchData-test-js-并编写：" class="headerlink" title="新建fetchData.test.js,并编写："></a>新建fetchData.test.js,并编写：</h4><pre><code>    import &#123; fetchData &#125; from &#39;./fetchData.js&#39;
+    test(&#39;fetchData 测试&#39;,(done)=&gt;&#123;
+    fetchData((data)=&gt;&#123;
+        expect(data).toEqual(&#123;
+            success: true
+        &#125;)
+        done()
+    &#125;)
+    &#125;)
+</code></pre>
+<h3 id="7-2、直接返回promise"><a href="#7-2、直接返回promise" class="headerlink" title="7.2、直接返回promise"></a>7.2、直接返回promise</h3><h4 id="fetchData-js："><a href="#fetchData-js：" class="headerlink" title="fetchData.js："></a>fetchData.js：</h4><pre><code>    import axios from &#39;axios&#39;
+    export const fetchTwoData = ()=&gt;&#123;
+        return axios.get(&#39;http://xxx.com/xxx.json&#39;)
+    &#125;
+</code></pre>
+<h4 id="fetchData-test-js："><a href="#fetchData-test-js：" class="headerlink" title="fetchData.test.js："></a>fetchData.test.js：</h4><pre><code>import &#123; FetchTwoData &#125; from &#39;./fetchData.js&#39;
+test(&#39;FetchTwoData 测试&#39;, ()=&gt;&#123;
+    return  fetchTwoData().then((response)=&gt;&#123;
+            expect(response.data).toEqual(&#123;
+                success: true
+            &#125;)
+        &#125;)
+&#125;)
+</code></pre>
+<h3 id="7-3、不存在的接口的测试方法"><a href="#7-3、不存在的接口的测试方法" class="headerlink" title="7.3、不存在的接口的测试方法"></a>7.3、不存在的接口的测试方法</h3><h4 id="fetchData-test-js：-1"><a href="#fetchData-test-js：-1" class="headerlink" title="fetchData.test.js："></a>fetchData.test.js：</h4><pre><code>import &#123; FetchThreeData &#125; from &#39;./fetchData.js&#39;
+test(&#39;FetchThreeData 测试&#39;, ()=&gt;&#123;
+    expect.assertions(1)  // 断言，必须执行一次expect
+    return fetchThreeData().catch((e)=&gt;&#123;
+        expect(e.toString().indexOf(&#39;404&#39;)&gt; -1).toBe(true)
+
+    &#125;)
+&#125;)
+</code></pre>
+<h3 id="7-4、async…-await"><a href="#7-4、async…-await" class="headerlink" title="7.4、async….await"></a>7.4、async….await</h3><h4 id="fetchData-test-js：-2"><a href="#fetchData-test-js：-2" class="headerlink" title="fetchData.test.js："></a>fetchData.test.js：</h4><pre><code>import &#123; FetchFourData &#125; from &#39;./fetchData.js&#39;
+test(&#39;FetchFourData 测试&#39;, async()=&gt;&#123;
+        //resolves把现有对象转换成Promise对象，
+        //toMatchObject 匹配对象中的属性
+        await expect(fetchFourData()).resolves.toMatchObject(&#123;
+            data:&#123;
+                success:true
+            &#125;
+        &#125;)
+&#125;)
+或者
+import &#123; FetchFourData &#125; from &#39;./fetchData.js&#39;
+test(&#39;FetchFourData 测试&#39;, async()=&gt;&#123;
+        const response  = await fetchFourData()
+        expect(response.data).toEqual(&#123;
+            success : true
+        &#125;)
+&#125;)
+</code></pre>
+<h1 id="8、jest的4个钩子函数"><a href="#8、jest的4个钩子函数" class="headerlink" title="8、jest的4个钩子函数"></a>8、jest的4个钩子函数</h1><pre><code>beforeAll()钩子函数：在所有测试用例之前进行执行
+afterAll()钩子函数：在完成所有测试用例之后才执行
+beforeEach()钩子函数：在每个测试用例前都会执行一次
+afterEach()钩子函数：在每个测试用例完成测试之后执行一次
+</code></pre>
+<h1 id="9、jest对测试用例进行分组"><a href="#9、jest对测试用例进行分组" class="headerlink" title="9、jest对测试用例进行分组"></a>9、jest对测试用例进行分组</h1><pre><code>describe(&#39;参数1&#39;,()=&gt;&#123;
+    .....
+&#125;)
+</code></pre>
+<h4 id="钩子函数在父级分组可作用域子集，类似继承"><a href="#钩子函数在父级分组可作用域子集，类似继承" class="headerlink" title="钩子函数在父级分组可作用域子集，类似继承"></a>钩子函数在父级分组可作用域子集，类似继承</h4><h4 id="钩子函数同级分组作用域互不干扰，各起作用"><a href="#钩子函数同级分组作用域互不干扰，各起作用" class="headerlink" title="钩子函数同级分组作用域互不干扰，各起作用"></a>钩子函数同级分组作用域互不干扰，各起作用</h4><h4 id="先执行外部的钩子函数，再执行内部的钩子函数"><a href="#先执行外部的钩子函数，再执行内部的钩子函数" class="headerlink" title="先执行外部的钩子函数，再执行内部的钩子函数"></a>先执行外部的钩子函数，再执行内部的钩子函数</h4>]]></content>
+      <tags>
+        <tag>技术</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>桃花扇</title>
     <url>/2021/04/15/My-New-Post/</url>
     <content><![CDATA[<h1 id="《哀江南》（节选）"><a href="#《哀江南》（节选）" class="headerlink" title="《哀江南》（节选）"></a>《哀江南》（节选）</h1><pre><code>            --- 清 孔尚任
@@ -16,6 +202,24 @@
       <tags>
         <tag>摘抄</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/2021/04/14/hello-world/</url>
+    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
   </entry>
   <entry>
     <title>搭建博客</title>
@@ -123,24 +327,6 @@ local_search:
       <tags>
         <tag>技术</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>Hello World</title>
-    <url>/2021/04/14/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-]]></content>
   </entry>
   <entry>
     <title>js数据类型及常用方法</title>
